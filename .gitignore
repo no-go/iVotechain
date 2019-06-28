@@ -1,0 +1,10 @@
+temp*
+
+rOffice
+bBox
+voter
+schoenenborn
+
+*.o
+src/*.o
+src/gen-cpp/*.o
