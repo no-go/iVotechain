@@ -139,6 +139,12 @@ von hash und signatur kann jeder leicht machen und sich auch sein eigenes
 Tupel anschauen. Durch den Upload mehrerer Tupel wird verschleiert, welches von
 mir selbst ist.
 
+Man könnte sich hier eine Art Bluetooth Broadcast vorstellen, bei dem man kontaktlos
+seine Tupel verteilt und einsammelt. Wenn man nur sein eigenes Tupel initial hat,
+bleibt hier wieder die Frage offen, wie geheim die Wahl ist. Das System ist ja
+absichtlich so offen gestaltet, dass man auch Gerätekennung (Bluetooth-MAC)
+Ort und Zeitpunkt (ggf auch Bild der Person) mitaufzeichnen könnte.
+
 ### Auszählung
 
 Der Staat könnte nun den private key veröffentlichen, um allen das Auszählen
@@ -147,3 +153,39 @@ eigenen public key beim ersten Tupel mit vverbraten... eine anonymität ginge hi
 aber möglicherweise verloren (meine IP bei veröffentlichung). beim sammeln der
 Tupel könnte man sich aber auch die Leute merken, wenn sie einem nur eines
 (ihr eigenes) Tupel geben. cool wären hier natürlich ungültige fake-tuple.
+
+
+# andere Ideen
+
+Minderheitenfilter: Blöd bei umfragen ist, wenn sich aus bestimmten persönlichen
+kriterien ein person eindeutig identifizieren lässt. prima wäre da ein datensatz,
+der sich quasi ab einer Menge von 5% (oder ab 5 Datensätzen) selbst entschlüsselt.
+Etwas schräg: Erst wenn man viele Stimmen-Datensätze einer kleinst Partei
+zusammenlegt, sollten sie eindeutig auszählbar sein. Durch Kombinatorik
+bekäme man dann aber trotzdem heraus, wie viele Stimmen in eine Urne sind.
+
+Beispiel:
+
+Ich habe 100 Datensätze (je 8 binäre Messgrößen) durch 100 User bekommen. Jeder User
+hat seinen Datensatz "signiert". Es soll eine Summe über die Messgrößen
+gebildet werden. Weil die User anonym bleiben wollen und ein einzelner Datensatz
+sie identifizierbar machen (Frau, Informatik, unter 17 jahre alt, körperbehindert,
+will keine umstrittene Dachbegrünung) sind die Datensätze "verschlüsselt".
+
+Nun ist in dem Beispiel die Aufgabe wie folgt:
+
+- Summenbildung je Messgröße ab z.B. 10 der Datensätze muss möglich sein
+- erst wenn in N ausgewählten Datensätzen jede Messgröße mehr als 0.04*N
+  vorkommt, kann eine Auswertung stattfinden.
+- durch geschickte Kombination der Datensätze soll es nicht möglich sein,
+  den Inhalt eines Datensatzes zu ermitteln
+
+Ziel ist es, spezielle (individuelle) Ausreißer in den Datensätzen aufgrund
+der Speicherung so lange auszuschließen, bis es davon mindestens 4% oder
+auch mehr als X Datensätze gibt.
+
+Hab ich genung (sagen wir 6) Datensätze zusammen, kann ich eine Nullstelle ermitteln,
+welche dann den Datensatz (mit Faktor 6) darstellt. Mit den 6 Datensätzen hat
+man dann nur noch eine Gruppe von 6 Personen, auf die die Kriterien zutreffen,
+welche ggf. auch im echten Leben erkennbar sind. Somit ist nicht mehr
+eine Person identifizierbar.

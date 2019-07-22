@@ -1,31 +1,56 @@
 # iVotechain
 
-## todo
+Fazit: Das Projekt habe ich ersmal aufgegeben, da ich logisch
+eine geheime elektronische Wahl unter Teilnehmern, die sich
+nicht trauen, für nicht durchführbar halte.
 
-tests
+Überlegungen zur Unmöglichkeit
 
-- wie zufällig ist pub und priv key
-- probieren mit priv key andere pub keys zu machen und ob signierung dann noch valide ist
-- wie zufällig ist erzeugter symetrischer schlüssel 
+- ich traue der Institution, die einer Person ein Wahlrecht einräumt.
+  An dieser Stelle ist möglich, dass diese Institution einfach
+  die Stimmen der Nicht-Wähler nimmt, und damit wählt.
+- Obiges ist nur von der Öffentlichkeit erkennbar, wenn das Wahlrecht
+  an eine echte, eindeutige Person (kein übertragbarer Key/Token) gebunden
+  ist (elektronisch nur schwer möglich - Stimme gut verkaufbar)
+- Trennung Voting und Wahlberechtigung: Eine getrennte Speicherung
+  geschieht im guten Glauben. Die Öffentlichkeit kann eine getrennte
+  Speicherung nicht überprüfen. Mit einem homomorpher Kryptograpie und
+  Mixnet ließe sich zwar Voting+Wahlrecht zusammen erfassen, aber eine
+  Erkennbarkeit, ob meine Wahl korrekt gezählt wurde, entfällt.
+- IP-Adresse, Person, Voratsdatenspeicherung: auch mit TOR oder einem
+  vergleichbaren Netzwerk, welches zur Wahl der Staat aufbauen würde,
+  ist die Abgabe einer elektronischen Stimme nicht anonym oder geheim.
+  Dies könnte man durch ein vorgelagertes Sammeln von Stimmen anderer
+  Personen abfedern. Man lädt in dem Fall dann gleich mehrere
+  mit einem Pseudonym markierte verschlüsselte Votings hoch, so dass
+  das eigene Voting "untergeht". Bootstraping ist hier aber ein Problem:
+  bekomme ich initial ein Voting von einem anderen, dann kann ich diese
+  Stimme ihm zuordnen. Ohne Pseudonym und mit einem Mixnet, wäre
+  allerdings diese Sammelidee nicht möglich, da sonst Stimmen
+  mehrfach gezählt werden.
+- Die Wahl muss geheim ausgezählt werden: Aus meiner Sicht gilt dies
+  auch für den Staat. Wenn dieser einen public-Key zum Verschlüssel
+  des Votings veröffentlicht, so muss ich eigentlich auch zusätzlich
+  noch mit meinem Key oder einer "Nonce" mein Voting vor einem vorzeitigen
+  auszählen des Staats schützen. Leider existiert noch kein Konzept,
+  bei dem ein zeitliches Ereignis zur automatischen Entschlüsselung
+  führt (spannendes Thema!). Daher muss ich genauso wie der Staat
+  am Ende der Wahl meinen private Key/Schlüssel/Nonce veröffentlichen.
+  Genau wie bei dem IP-Adressen Punkt: mein Pseudonym im Voting wird
+  bei dieser Veröffentlichung an meine Person gebunden/gelinkt.
 
-Umbau
 
-- commitment des Pseudonyms um missbrauch vor zu beugen
-- hash des letzten votes oder commitments soll verlinkt werden: Verteilte Chain als Zeitstempel
-- Lamport-Zeit?
-- client und BB soll ein "peer" werden
-- gossip funktionen, um BB miteinander zu sync-en
-- vote soll ein mix aus Tx und Block einer Blockchain sein
-- revoke eines Pseudonyms?
-- mixnet? Wie erreiche ich trennung vote-pseudonym?
-- mixnet oder Fake Tor Netzwerk, damit vote von IP gelöst ist?
+Aus allen mir damit verbundenen Überlegungen führe ich das Projekt
+hier nicht weiter. Durch die Möglichkeit einer Vorratsdatenspeicherung
+ist der Zugang zu einem elektronischen Wahlsystem nicht geheim/anonym
+und Techniken wie "Mixnet" führen zu einem Mangel der Überprüfbarkeit
+bei der Abgabe. Alternative/Kombinierte Systeme, die dies lösen würden,
+würden ein großes Vertrauen in eine an der Wahl beteiligten Institution
+oder Service-Provider vorraussetzen. Dies mache aber eine sichere,
+geheime elektronische Wahl unter "Paranoiden" die sich alle nicht trauen
+zu einem unmöglichen Konzept.
 
-Frage
-
-Wie verschleiere ich in einem P2P Netzwerk die Absender IP-Adresse,
-wenn ich eine Nachricht via Gossip broadcaste?
-
-## Aufbau
+# Aufbau bisheriger Code
 
 Das Projekt nutzt Crypto++ um ein Full Domain Hash, base64 Kodierung
 sowie eine RSA blind-Signierung (inkl. Verschlüsselung) zu ermöglichen. Als
@@ -100,3 +125,33 @@ hash of psydonyme as commitment. Yada, yada, yada...
 - sended content can be public checked because it is encrypted
 - counting the votes can be done by RegistrationOffice or after the private key 
   gets public (election ends)
+
+# todo (veraltet)
+
+tests
+
+- wie zufällig ist pub und priv key
+- probieren mit priv key andere pub keys zu machen und ob signierung dann noch valide ist
+- wie zufällig ist erzeugter symetrischer schlüssel 
+
+Umbau
+
+- commitment des Pseudonyms um missbrauch vor zu beugen
+- hash des letzten votes oder commitments soll verlinkt werden: Verteilte Chain als Zeitstempel
+- Lamport-Zeit?
+- client und BB soll ein "peer" werden
+- gossip funktionen, um BB miteinander zu sync-en
+- vote soll ein mix aus Tx und Block einer Blockchain sein
+- revoke eines Pseudonyms?
+- mixnet? Wie erreiche ich trennung vote-pseudonym?
+- mixnet oder Fake Tor Netzwerk, damit vote von IP gelöst ist?
+
+Frage
+
+Wie verschleiere ich in einem P2P Netzwerk die Absender IP-Adresse,
+wenn ich eine Nachricht via Gossip broadcaste?
+
+Mixnet
+
+- Gruppen oder Ringsignierung?
+- homomorphe Kryptographie?
